@@ -1,0 +1,13 @@
+.card {
+  max-width: 100%;
+  height: 360px;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  border-radius: 10px;
+  display: grid;
+  grid: 282px auto / auto 52px;
+  align-items: center;
+  justify-content: center;
+  object-fit: cover;
+}
