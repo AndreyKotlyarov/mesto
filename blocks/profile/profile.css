@@ -1,9 +1,7 @@
 .profile {
   width: 100%;
-  display: grid;
-  grid-template-columns: 120px 1fr 150px;
-  align-items: center;
-  justify-items: start;
+  display: flex;
+  justify-content: space-between;
   box-sizing: border-box;
   padding: 0 200px;
 }
@@ -19,5 +17,16 @@
     justify-content: center;
     align-items: center;
     padding: 0 19px;
+  }
+}
+.profile__container {
+  display: flex;
+  align-items: center;
+}
+@media screen and (max-width: 900px) {
+  .profile__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }

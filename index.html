@@ -14,51 +14,65 @@
     <img class="header___logo" src="./images/logo.svg" alt="Логотип">
     <div class="line"></div>
   </header>
-  <!-- <main> -->
-  <section class="profile">
-    <img src="./images/profile-avatar.jpg" alt="Аватар профиля" class="profile__avatar">
-    <div class="profile__info">
-      <h1 class="profile__name">Жак-Ив Кусто</h1>
-      <button class="profile__edit-button"></button>
-      <p class="profile__caption">Исследователь океана</p>
-    </div>
-    <button class="profile__add-button"><img src="./images/add.svg" alt="кнопка добавления"></button>
-  </section>
-  <section class="cards-grid">
-
-    <figure class="card">
-      <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="card__image">
-      <figcaption class="card__caption">Карачаевск</figcaption>
-      <button class="card__like-button"><img src="./images/like.svg" alt="Лайк"></button>
-    </figure>
-    <figure class="card">
-      <img src="./images/elbrus.jpg" alt="Эльбрус" class="card__image">
-      <figcaption class="card__caption">Гора Эльбрус</figcaption>
-      <button class="card__like-button"><img src="./images/like.svg" alt="Лайк"></button>
-    </figure>
-    <figure class="card">
-      <img src="./images/dombay.jpg" alt="Домбай" class="card__image">
-      <figcaption class="card__caption">Домбай</figcaption>
-      <button class="card__like-button"><img src="./images/like.svg" alt="Лайк"></button>
-    </figure>
-    <figure class="card">
-      <img src="./images/iceland.jpg" alt="Исландия" class="card__image">
-      <figcaption class="card__caption">Исландия</figcaption>
-      <button class="card__like-button"><img src="./images/like.svg" alt="Лайк"></button>
-    </figure>
-    <figure class="card">
-      <img src="./images/san-francisco.jpg" alt="Сан-Франциско" class="card__image">
-      <figcaption class="card__caption">Сан-Франциско</figcaption>
-      <button class="card__like-button"><img src="./images/like.svg" alt="Лайк"></button>
-    </figure>
-    <figure class="card">
-      <img src="./images/sandwich-harbor.jpg" alt="Сэндвич-Харбор" class="card__image">
-      <figcaption class="card__caption">Сэндвич-Харбор</figcaption>
-      <button class="card__like-button"><img src="./images/like.svg" alt="Лайк"></button>
-    </figure>
-
-  </section>
-  <!-- </main> -->
+  <main class="main">
+    <section class="profile">
+      <div class="profile__container">
+        <img src="./images/profile-avatar.jpg" alt="Аватар профиля" class="profile__avatar">
+        <div class="profile__info">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <button class="profile__edit-button"></button>
+          <p class="profile__caption">Исследователь океана</p>
+        </div>
+      </div>
+      <button class="profile__add-button"><img src="./images/add.svg" alt="кнопка добавления"></button>
+    </section>
+    <section class="cards-grid">
+      <ul class="elements-list">
+        <li class="elements-list__element">
+          <figure class="card">
+            <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="card__image">
+            <figcaption class="card__caption">Карачаевск</figcaption>
+            <button class="card__like-button"><img src="./images/like.svg" alt="Лайк"></button>
+          </figure>
+        </li>
+        <li class="element-list__element">
+          <figure class="card">
+            <img src="./images/elbrus.jpg" alt="Эльбрус" class="card__image">
+            <figcaption class="card__caption">Гора Эльбрус</figcaption>
+            <button class="card__like-button"><img src="./images/like.svg" alt="Лайк"></button>
+          </figure>
+        </li>
+        <li class="element-list__element">
+          <figure class="card">
+            <img src="./images/dombay.jpg" alt="Домбай" class="card__image">
+            <figcaption class="card__caption">Домбай</figcaption>
+            <button class="card__like-button"><img src="./images/like.svg" alt="Лайк"></button>
+          </figure>
+        </li>
+        <li class="element-list__element">
+          <figure class="card">
+            <img src="./images/iceland.jpg" alt="Исландия" class="card__image">
+            <figcaption class="card__caption">Исландия</figcaption>
+            <button class="card__like-button"><img src="./images/like.svg" alt="Лайк"></button>
+          </figure>
+        </li>
+        <li class="element-list__element">
+          <figure class="card">
+            <img src="./images/san-francisco.jpg" alt="Сан-Франциско" class="card__image">
+            <figcaption class="card__caption">Сан-Франциско</figcaption>
+            <button class="card__like-button"><img src="./images/like.svg" alt="Лайк"></button>
+          </figure>
+        </li>
+        <li class="element-list__element">
+          <figure class="card">
+            <img src="./images/sandwich-harbor.jpg" alt="Сэндвич-Харбор" class="card__image">
+            <figcaption class="card__caption">Сэндвич-Харбор</figcaption>
+            <button class="card__like-button"><img src="./images/like.svg" alt="Лайк"></button>
+          </figure>
+        </li>
+      </ul>
+    </section>
+  </main>
   <footer class="footer">
     <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
   </footer>
