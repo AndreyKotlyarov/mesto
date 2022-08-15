@@ -10,6 +10,7 @@
   background-size: contain;
   border: none;
   padding: 0;
+  transition: opacity ease-in-out 0.3s;
 }
 @media screen and (max-width: 600px) {
   .pop-up__close-button {
@@ -18,4 +19,8 @@
     top: -36px;
     right: 0;
   }
+}
+.pop-up__close-button:hover {
+  opacity: 0.6;
+  cursor: pointer;
 }
