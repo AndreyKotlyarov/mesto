@@ -1,11 +1,12 @@
 .profile__edit-button {
-  background-color: rgb(0, 0, 0);
+  background-color: transparent;
   height: 24px;
   width: 24px;
   background-image: url(../../../images/Edit\ Button.svg);
   background-repeat: no-repeat;
-  background-size: contain;
-  border: none;
+  background-position: center;
+  background-size: 10px;
+  border: 1px solid #ffffff;
   padding: 0;
   transition: opacity ease-in-out 0.3s;
 }

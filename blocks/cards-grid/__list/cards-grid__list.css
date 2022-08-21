@@ -1,4 +1,4 @@
-.elements-list {
+.cards-grid__list {
   max-width: 100%;
   list-style-type: none;
   margin: 56px 0 66px;
@@ -11,13 +11,14 @@
   row-gap: 20px;
 }
 @media screen and (max-width: 1279px) {
-  .elements-list {
+  .cards-grid__list {
     padding: 0 150px;
   }
 }
 
 @media screen and (max-width: 900px) {
-  .elements-list {
+  .cards-grid__list {
     padding: 0 19px;
+    margin: 36px 0 48px;
   }
 }

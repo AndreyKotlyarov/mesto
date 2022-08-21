@@ -6,13 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css" />
-  <title>Mesto</title>
+  <title>Место</title>
 </head>
 
 <body class="container">
   <header class="header">
     <img class="header__logo" src="./images/logo.svg" alt="Логотип">
-    <div class="line"></div>
   </header>
   <main class="main">
     <section class="profile">
@@ -20,55 +19,43 @@
         <img src="./images/profile-avatar.jpg" alt="Аватар профиля" class="profile__avatar">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button"></button>
+          <button type="button" class="profile__edit-button"></button>
           <p class="profile__caption">Исследователь океана</p>
         </div>
       </div>
-      <button class="profile__add-button"><img src="./images/add.svg" alt="кнопка добавления"></button>
+      <button type="button" class="profile__add-button"></button>
     </section>
     <section class="cards-grid">
-      <ul class="elements-list">
-        <li class="elements-list__element">
-          <div class="card">
-            <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="card__image">
-            <h2 class="card__caption">Карачаевск</h2>
-            <button class="card__like-button"></button>
-          </div>
+      <ul class="cards-grid__list">
+        <li class="cards-grid__card card">
+          <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="card__image">
+          <h2 class="card__caption">Карачаевск</h2>
+          <button type="button" class="card__like-button"></button>
         </li>
-        <li class="elements-list__element">
-          <div class="card">
-            <img src="./images/elbrus.jpg" alt="Эльбрус" class="card__image">
-            <h2 class="card__caption">Гора Эльбрус</h2>
-            <button class="card__like-button"></button>
-          </div>
+        <li class="cards-grid__card card">
+          <img src="./images/elbrus.jpg" alt="Эльбрус" class="card__image">
+          <h2 class="card__caption">Гора Эльбрус</h2>
+          <button type="button" class="card__like-button"></button>
         </li>
-        <li class="elements-list__element">
-          <div class="card">
-            <img src="./images/dombay.jpg" alt="Домбай" class="card__image">
-            <h2 class="card__caption">Домбай</h2>
-            <button class="card__like-button"></button>
-          </div>
+        <li class="cards-grid__card card">
+          <img src="./images/dombay.jpg" alt="Домбай" class="card__image">
+          <h2 class="card__caption">Домбай</h2>
+          <button type="button" class="card__like-button"></button>
         </li>
-        <li class="elements-list__element">
-          <div class="card">
-            <img src="./images/iceland.jpg" alt="Исландия" class="card__image">
-            <h2 class="card__caption">Исландия</h2>
-            <button class="card__like-button"></button>
-          </div>
+        <li class="cards-grid__card card">
+          <img src="./images/iceland.jpg" alt="Исландия" class="card__image">
+          <h2 class="card__caption">Исландия</h2>
+          <button type="button" class="card__like-button"></button>
         </li>
-        <li class="elements-list__element">
-          <div class="card">
-            <img src="./images/san-francisco.jpg" alt="Сан-Франциско" class="card__image">
-            <h2 class="card__caption">Сан-Франциско</h2>
-            <button class="card__like-button"></button>
-          </div>
+        <li class="cards-grid__card card">
+          <img src="./images/san-francisco.jpg" alt="Сан-Франциско" class="card__image">
+          <h2 class="card__caption">Сан-Франциско</h2>
+          <button type="button" class="card__like-button"></button>
         </li>
-        <li class="elements-list__element">
-          <div class="card">
-            <img src="./images/sandwich-harbor.jpg" alt="Сэндвич-Харбор" class="card__image">
-            <h2 class="card__caption">Сэндвич-Харбор</h2>
-            <button class="card__like-button"></button>
-          </div>
+        <li class="cards-grid__card card">
+          <img src="./images/sandwich-harbor.jpg" alt="Сэндвич-Харбор" class="card__image">
+          <h2 class="card__caption">Сэндвич-Харбор</h2>
+          <button type="button" class="card__like-button"></button>
         </li>
       </ul>
     </section>
@@ -78,12 +65,12 @@
   </footer>
   <section class="pop-up">
     <div class="pop-up__container">
-      <button class="pop-up__close-button"></button>
-      <form class="pop-up__form">
+      <button type="button" class="pop-up__close-button"></button>
+      <form name="profile-edit-form" class="pop-up__form">
         <h2 class="pop-up__heading">Редактировать профиль</h2>
-        <input type="text" class="pop-up__input" id="input_type_name" value="Жак-Ив Кусто">
-        <input type="text" class="pop-up__input" id="input_type_job" value="Исследователь океана">
-        <button class="pop-up__submit-button">Сохранить</button>
+        <input type="text" class="pop-up__input pop-up__input_name" value="Жак-Ив Кусто">
+        <input type="text" class="pop-up__input pop-up__input_job" value="Исследователь океана">
+        <button type="submit" class="pop-up__submit-button">Сохранить</button>
       </form>
     </div>
   </section>

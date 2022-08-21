@@ -1,0 +1,4 @@
+.cards-grid__card {
+  max-width: 100%;
+  overflow: hidden;
+}

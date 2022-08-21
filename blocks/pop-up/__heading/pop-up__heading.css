@@ -1,5 +1,6 @@
 .pop-up__heading {
   margin: 0;
+  margin-bottom: 54px;
   padding: 0;
   font-weight: 900;
   font-size: 24px;
@@ -9,5 +10,6 @@
   .pop-up__heading {
     font-size: 18px;
     line-height: 22px;
+    margin-bottom: 75px;
   }
 }
