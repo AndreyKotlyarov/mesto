@@ -20,8 +20,8 @@ const initialCards = [
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
   },
   {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+    name: "Красивое",
+    link: "https://picsum.photos/600/600",
   },
 ];
 
@@ -39,6 +39,10 @@ const popupAddCard = document.querySelector(".pop-up_type_add-card");
 const listElement = document.querySelector(".cards-grid__list");
 const templateElement = document.querySelector(".template");
 const closeButtonCard = popupAddCard.querySelector(".pop-up__close-button");
+const placeInput = popupAddCard.querySelector(".pop-up__input_type_place");
+const linkInput = popupAddCard.querySelector(".pop-up__input_type_link");
+const placeName = templateElement.querySelector(".card__caption");
+const cardImage = templateElement.querySelector(".card__image");
 
 const openPopup = function () {
   nameInput.value = profileName.textContent;
@@ -57,23 +61,41 @@ function formSubmitHandler(evt) {
   closePopup();
 }
 
-const addCard = function (element) {
-  const newCard = templateElement.content.cloneNode(true);
-  newCard.querySelector(".card__caption").textContent = element.name;
-  newCard.querySelector(".card__image").alt = element.name;
-  newCard.querySelector(".card__image").src = element.link;
-  listElement.append(newCard);
-};
-
 const openAddCardPopup = function () {
-  console.log(popupAddCard);
   popupAddCard.classList.add("pop-up_opened");
 };
 const closeAddCardPopup = function () {
   popupAddCard.classList.remove("pop-up_opened");
 };
 
-initialCards.forEach(addCard);
+const addCard = function (element) {
+  const newCard = templateElement.content.cloneNode(true);
+  newCard.querySelector(".card__caption").textContent = element.name;
+  newCard.querySelector(".card__image").alt = element.name;
+  newCard.querySelector(".card__image").src = element.link;
+  return newCard;
+};
+console.log(placeInput);
+
+function cardSubmitHandler(e) {
+  e.preventDefault();
+  const element = {
+    name: "",
+    link: "",
+  };
+  element.name = placeInput.value;
+  element.link = linkInput.value;
+  const newCard = addCard(element);
+  listElement.prepend(newCard);
+  placeInput.value = "";
+  linkInput.value = "";
+  closeAddCardPopup();
+}
+
+initialCards.forEach((element) => {
+  const newCard = addCard(element);
+  listElement.append(newCard);
+});
 
 editButton.addEventListener("click", openPopup);
 closeButton.addEventListener("click", closePopup);
@@ -81,3 +103,5 @@ formElement.addEventListener("submit", formSubmitHandler);
 
 addButton.addEventListener("click", openAddCardPopup);
 closeButtonCard.addEventListener("click", closeAddCardPopup);
+
+popupAddCard.addEventListener("submit", cardSubmitHandler);
