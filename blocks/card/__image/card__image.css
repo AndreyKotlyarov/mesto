@@ -5,3 +5,7 @@
   justify-self: center;
   aspect-ratio: 1 / 1;
 }
+
+.card__image:hover {
+  cursor: pointer;
+}

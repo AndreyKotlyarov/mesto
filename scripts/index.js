@@ -36,13 +36,15 @@ const profileName = document.querySelector(".profile__name");
 const profileCaption = document.querySelector(".profile__caption");
 
 const popupAddCard = document.querySelector(".pop-up_type_add-card");
+const popupImage = document.querySelector(".pop-up_type_open-image");
 const listElement = document.querySelector(".cards-grid__list");
 const templateElement = document.querySelector(".template");
 const closeButtonCard = popupAddCard.querySelector(".pop-up__close-button");
 const placeInput = popupAddCard.querySelector(".pop-up__input_type_place");
 const linkInput = popupAddCard.querySelector(".pop-up__input_type_link");
-const placeName = templateElement.querySelector(".card__caption");
-const cardImage = templateElement.querySelector(".card__image");
+const imageSrc = document.querySelector(".pop-up__image");
+const imageCaption = document.querySelector(".pop-up__image-caption");
+const closeImageButton = popupImage.querySelector(".pop-up__close-button");
 
 const openPopup = function () {
   nameInput.value = profileName.textContent;
@@ -66,6 +68,18 @@ const openAddCardPopup = function () {
 };
 const closeAddCardPopup = function () {
   popupAddCard.classList.remove("pop-up_opened");
+};
+
+const openImage = function (e) {
+  const itemElement = e.target.closest(".card");
+  const cardLink = itemElement.querySelector(".card__image").src;
+  const cardCaption = itemElement.querySelector(".card__caption").textContent;
+  imageCaption.textContent = cardCaption;
+  imageSrc.src = cardLink;
+  popupImage.classList.add("pop-up_opened");
+};
+const closeImage = function () {
+  popupImage.classList.remove("pop-up_opened");
 };
 
 const addCard = function (element) {
@@ -104,6 +118,8 @@ formElement.addEventListener("submit", formSubmitHandler);
 addButton.addEventListener("click", openAddCardPopup);
 closeButtonCard.addEventListener("click", closeAddCardPopup);
 
+closeImageButton.addEventListener("click", closeImage);
+
 popupAddCard.addEventListener("submit", cardSubmitHandler);
 
 function handleDelete(e) {
@@ -114,6 +130,7 @@ function handleLike(e) {
   const itemElement = e.target.closest(".card__like-button");
   itemElement.classList.toggle("card__like-button_active");
 }
+
 function addListeners(element) {
   element
     .querySelector(".card__delete-button")
@@ -121,4 +138,5 @@ function addListeners(element) {
   element
     .querySelector(".card__like-button")
     .addEventListener("click", handleLike);
+  element.querySelector(".card__image").addEventListener("click", openImage);
 }
