@@ -73,9 +73,9 @@ const addCard = function (element) {
   newCard.querySelector(".card__caption").textContent = element.name;
   newCard.querySelector(".card__image").alt = element.name;
   newCard.querySelector(".card__image").src = element.link;
+  addListeners(newCard);
   return newCard;
 };
-console.log(placeInput);
 
 function cardSubmitHandler(e) {
   e.preventDefault();
@@ -105,3 +105,20 @@ addButton.addEventListener("click", openAddCardPopup);
 closeButtonCard.addEventListener("click", closeAddCardPopup);
 
 popupAddCard.addEventListener("submit", cardSubmitHandler);
+
+function handleDelete(e) {
+  const itemElement = e.target.closest(".card");
+  itemElement.remove();
+}
+function handleLike(e) {
+  const itemElement = e.target.closest(".card__like-button");
+  itemElement.classList.toggle("card__like-button_active");
+}
+function addListeners(element) {
+  element
+    .querySelector(".card__delete-button")
+    .addEventListener("click", handleDelete);
+  element
+    .querySelector(".card__like-button")
+    .addEventListener("click", handleLike);
+}
