@@ -2,9 +2,11 @@ const profilePopup = document.querySelector(".pop-up_type_edit-profile");
 const editProfileButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".profile__add-button");
 const closeButton = profilePopup.querySelector(".pop-up__close-button");
-const formElement = document.querySelector(".pop-up__form");
-const nameInput = formElement.querySelector(".pop-up__input_type_name");
-const jobInput = formElement.querySelector(".pop-up__input_type_job");
+const editProfileForm = document.querySelector(
+  ".pop-up__form_type_edit-profile"
+);
+const nameInput = editProfileForm.querySelector(".pop-up__input_type_name");
+const jobInput = editProfileForm.querySelector(".pop-up__input_type_job");
 const profileName = document.querySelector(".profile__name");
 const profileCaption = document.querySelector(".profile__caption");
 
@@ -18,7 +20,6 @@ const placeInput = popupAddCard.querySelector(".pop-up__input_type_place");
 const linkInput = popupAddCard.querySelector(".pop-up__input_type_link");
 const imageSrc = document.querySelector(".pop-up__image");
 const imageCaption = document.querySelector(".pop-up__image-caption");
-const closeImageButton = popupImage.querySelector(".pop-up__close-button");
 
 const popup = document.querySelectorAll(".pop-up");
 const closeButtons = document.querySelectorAll(".pop-up__close-button");
@@ -110,5 +111,5 @@ closeButtons.forEach((button) => {
 
 editProfileButton.addEventListener("click", () => openPopup(profilePopup));
 addCardButton.addEventListener("click", () => openPopup(popupAddCard));
-formElement.addEventListener("submit", handleFormSubmit);
+editProfileForm.addEventListener("submit", handleFormSubmit);
 popupAddCard.addEventListener("submit", cardSubmitHandler);
