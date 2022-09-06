@@ -63,7 +63,7 @@ const addCard = function (element) {
   return newCard;
 };
 
-function cardSubmitHandler(e) {
+function handleCardSubmit(e) {
   e.preventDefault();
   const element = {
     name: "",
@@ -112,4 +112,4 @@ closeButtons.forEach((button) => {
 editProfileButton.addEventListener("click", () => openPopup(profilePopup));
 addCardButton.addEventListener("click", () => openPopup(popupAddCard));
 editProfileForm.addEventListener("submit", handleFormSubmit);
-popupAddCard.addEventListener("submit", cardSubmitHandler);
+popupAddCard.addEventListener("submit", handleCardSubmit);
