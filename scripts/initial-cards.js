@@ -20,7 +20,7 @@ const initialCards = [
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
   },
   {
-    name: "Красивое",
-    link: "https://picsum.photos/600/600",
+    name: "А это кошка",
+    link: "https://placekitten.com/g/600/600",
   },
 ];

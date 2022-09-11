@@ -23,6 +23,7 @@ const imageCaption = document.querySelector(".pop-up__image-caption");
 
 const popup = document.querySelectorAll(".pop-up");
 const closeButtons = document.querySelectorAll(".pop-up__close-button");
+const submitCardButton = popupAddCard.querySelector(".pop-up__submit-button");
 
 function openPopup(popup) {
   popup.classList.add("pop-up_opened");
@@ -103,13 +104,35 @@ function addListeners(element) {
 }
 
 closeButtons.forEach((button) => {
-  // находим 1 раз ближайший к крестику попап
   const popup = button.closest(".pop-up");
-  // устанавливаем обработчик закрытия на крестик
   button.addEventListener("click", () => closePopup(popup));
 });
 
-editProfileButton.addEventListener("click", () => openPopup(profilePopup));
-addCardButton.addEventListener("click", () => openPopup(popupAddCard));
+popup.forEach((popup) => {
+  popup.addEventListener("keydown", function (evt) {
+    if (evt.key === "Escape") {
+      closePopup(popup);
+    }
+  });
+});
+
+popup.forEach((background) => {
+  const window = background.closest(".pop-up");
+  background.addEventListener("click", function (evt) {
+    if (evt.target.classList.contains("pop-up")) {
+      closePopup(window);
+    }
+  });
+});
+
+editProfileButton.addEventListener("click", () => {
+  openPopup(profilePopup);
+  nameInput.focus();
+});
+addCardButton.addEventListener("click", () => {
+  openPopup(popupAddCard);
+  placeInput.focus();
+  submitCardButton.disabled = true;
+});
 editProfileForm.addEventListener("submit", handleFormSubmit);
 popupAddCard.addEventListener("submit", handleCardSubmit);

@@ -1,0 +1,14 @@
+.pop-up__error {
+  visibility: hidden;
+  margin: 5px 0 13px;
+  padding: 0;
+  color: #f00;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.pop-up__error:last-of-type {
+  margin-bottom: 30px;
+}
