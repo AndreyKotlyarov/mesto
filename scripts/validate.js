@@ -34,6 +34,18 @@ function checkInputValidity(formElement, inputElement, config) {
   }
 }
 
+function setButtonState(inputList, button, config) {
+  const hasErrors = inputList.some((input) => !input.validity.valid);
+  if (hasErrors) {
+    console.log(button);
+    button.classList.add(config.inactiveButtonClass);
+    button.disabled = true;
+  } else {
+    button.classList.remove(config.inactiveButtonClass);
+    button.disabled = false;
+  }
+}
+
 function setEventListeners(formElement, config) {
   const inputList = Array.from(
     formElement.querySelectorAll(config.inputSelector)
@@ -46,18 +58,6 @@ function setEventListeners(formElement, config) {
       setButtonState(inputList, button, config);
     });
   });
-}
-
-function setButtonState(inputList, button, config) {
-  const hasErrors = inputList.some((input) => !input.validity.valid);
-  if (hasErrors) {
-    console.log(button);
-    button.classList.add(config.inactiveButtonClass);
-    button.disabled = true;
-  } else {
-    button.classList.remove(config.inactiveButtonClass);
-    button.disabled = false;
-  }
 }
 
 function enableValidation(config) {

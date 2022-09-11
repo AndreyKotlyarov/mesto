@@ -7,7 +7,15 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 15px;
+  max-width: 358px;
 }
+
+@media screen and (max-width: 900px) {
+  .pop-up__error {
+    max-width: 232px;
+  }
+}
+
 
 .pop-up__error:last-of-type {
   margin-bottom: 30px;
