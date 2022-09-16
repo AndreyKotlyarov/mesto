@@ -36,11 +36,10 @@ function closePopup(popup) {
   document.removeEventListener("keydown", checkEscapeKey);
 }
 function checkEscapeKey(event) {
-  popup.forEach((popup) => {
-    if (event.key === "Escape") {
-      closePopup(popup);
-    }
-  });
+  const modalWindow = document.querySelector(".pop-up_opened");
+  if (event.key === "Escape") {
+    closePopup(modalWindow);
+  }
 }
 
 popup.forEach((background) => {
