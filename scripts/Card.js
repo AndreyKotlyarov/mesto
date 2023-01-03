@@ -1,8 +1,17 @@
+import {
+  popupBigImage,
+  popupImage,
+  popupImageCaption,
+  openPopup,
+} from "./index.js";
+
 export class Card {
   constructor(data, templateSelector) {
     this._link = data.link;
     this._name = data.name;
     this._templateSelector = templateSelector;
+    this._element = this._getTemplate();
+    this._image = this._element.querySelector(".card__image");
   }
   _getTemplate() {
     const cardElement = document
@@ -12,9 +21,8 @@ export class Card {
     return cardElement;
   }
   generateCard = () => {
-    this._element = this._getTemplate();
-    this._element.querySelector(".card__image").src = this._link;
-    this._element.querySelector(".card__image").alt = this._name;
+    this._image.src = this._link;
+    this._image.alt = this._name;
     this._element.querySelector(".card__caption").textContent = this._name;
     this._setEventListeners();
     return this._element;
@@ -28,16 +36,11 @@ export class Card {
     const itemElement = e.target.closest(".card__like-button");
     itemElement.classList.toggle("card__like-button_active");
   }
-  _handleOpenImage(e) {
-    const itemElement = e.target.closest(".card");
-    const cardLink = itemElement.querySelector(".card__image").src;
-    const cardCaption = itemElement.querySelector(".card__caption").textContent;
-    document.querySelector(".pop-up__image").src = cardLink;
-    document.querySelector(".pop-up__image").alt = cardCaption;
-    document.querySelector(".pop-up__image-caption").textContent = cardCaption;
-    document
-      .querySelector(".pop-up_type_open-image")
-      .classList.add("pop-up_opened");
+  _handleOpenImage() {
+    popupImage.src = this.src;
+    popupImage.alt = this.alt;
+    popupImageCaption.textContent = this.alt;
+    openPopup(popupBigImage);
   }
 
   _setEventListeners() {
