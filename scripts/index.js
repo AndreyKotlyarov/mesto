@@ -2,16 +2,11 @@ import { initialCards } from "./initial-cards.js";
 import { Card } from "./Card.js";
 import { validationConfig } from "./validation-config.js";
 import { FormValidator } from "./FormValidator.js";
+import { openPopup, closePopup } from "./utils.js";
 
 const popups = document.querySelectorAll(".pop-up");
 const popupProfile = document.querySelector(".pop-up_type_edit-profile");
 const popupAddCard = document.querySelector(".pop-up_type_add-card");
-
-export const popupBigImage = document.querySelector(".pop-up_type_open-image");
-export const popupImage = popupBigImage.querySelector(".pop-up__image");
-export const popupImageCaption = popupBigImage.querySelector(
-  ".pop-up__image-caption"
-);
 
 const buttonOpenPopupProfile = document.querySelector(".profile__edit-button");
 const buttonOpenPopupAddCard = document.querySelector(".profile__add-button");
@@ -37,20 +32,6 @@ popups.forEach((background) => {
   });
 });
 
-export function openPopup(popup) {
-  popup.classList.add("pop-up_opened");
-  document.addEventListener("keydown", checkEscapeKey);
-}
-function closePopup(popup) {
-  popup.classList.remove("pop-up_opened");
-  document.removeEventListener("keydown", checkEscapeKey);
-}
-function checkEscapeKey(event) {
-  if (event.key === "Escape") {
-    const modalWindow = document.querySelector(".pop-up_opened");
-    closePopup(modalWindow);
-  }
-}
 function submitEditProfileForm(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
@@ -59,7 +40,7 @@ function submitEditProfileForm(evt) {
 }
 
 function createCard(item) {
-  const card = new Card(item, ".template", popupImage);
+  const card = new Card(item, ".template");
   const newCard = card.generateCard(listElement);
   return newCard;
 }

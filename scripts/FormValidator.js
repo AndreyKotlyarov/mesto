@@ -56,14 +56,10 @@ export class FormValidator {
   }
 
   enableValidation() {
-    const forms = Array.from(
-      document.querySelectorAll(this._config.formSelector)
-    );
-    forms.forEach((formElement) => {
-      formElement.addEventListener("submit", (evt) => {
-        evt.preventDefault();
-      });
-      this._setEventListeners();
+    const form = document.querySelector(this._config.formSelector);
+    form.addEventListener("submit", (evt) => {
+      evt.preventDefault();
     });
+    this._setEventListeners();
   }
 }

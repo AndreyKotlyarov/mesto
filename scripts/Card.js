@@ -1,9 +1,5 @@
-import {
-  popupBigImage,
-  popupImage,
-  popupImageCaption,
-  openPopup,
-} from "./index.js";
+import { popupBigImage, popupImage, popupImageCaption } from "./consts.js";
+import { openPopup } from "./utils.js";
 
 export class Card {
   constructor(data, templateSelector) {
