@@ -1,7 +1,8 @@
+import Section from "./Section.js";
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
 import { initialCards } from "./initial-cards.js";
-import { Card } from "./Card.js";
 import { validationConfig } from "./validation-config.js";
-import { FormValidator } from "./FormValidator.js";
 import { openPopup, closePopup } from "./utils.js";
 
 const popups = document.querySelectorAll(".pop-up");
@@ -45,9 +46,18 @@ function createCard(item) {
   return newCard;
 }
 
-initialCards.forEach((item) => {
-  listElement.append(createCard(item));
-});
+const cardList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = new Card(item, ".template");
+      const cardElement = card.generateCard();
+      cardList.addItem(cardElement);
+    },
+  },
+  listElement
+);
+cardList.renderItems();
 
 function handleCardSubmit(e) {
   e.preventDefault();

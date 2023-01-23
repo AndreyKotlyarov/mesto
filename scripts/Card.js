@@ -1,7 +1,7 @@
 import { popupBigImage, popupImage, popupImageCaption } from "./consts.js";
 import { openPopup } from "./utils.js";
 
-export class Card {
+export default class Card {
   constructor(data, templateSelector) {
     this._link = data.link;
     this._name = data.name;
