@@ -1,5 +1,9 @@
 export const initialCards = [
   {
+    name: "Picsum",
+    link: "https://picsum.photos/600",
+  },
+  {
     name: "Архыз",
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
   },
@@ -18,9 +22,5 @@ export const initialCards = [
   {
     name: "Холмогорский район",
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "А это кошка",
-    link: "https://placekitten.com/g/600/600",
   },
 ];
