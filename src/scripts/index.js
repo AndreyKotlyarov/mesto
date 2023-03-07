@@ -1,3 +1,4 @@
+import "../pages/index.css";
 import Section from "./Section.js";
 import Card from "./Card.js";
 import PopupWithImage from "./PopupWithImage.js";
@@ -74,7 +75,6 @@ buttonOpenPopupProfile.addEventListener("click", () => {
   const userData = userInfo.getUserInfo();
   inputName.value = userData.userName;
   inputJob.value = userData.userJob;
-  userInfo.getUserInfo();
   popupProfile.open();
 });
 
