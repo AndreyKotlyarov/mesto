@@ -12,8 +12,8 @@ export default class PopupWithForm extends Popup {
     this._inputValues = {};
     this._inputs.forEach((input) => {
       this._inputValues[input.name] = input.value;
-      return this._inputValues;
     });
+    return this._inputValues;
     //собирает данные всех полей формы.
   }
   setEventListeners() {
@@ -21,8 +21,6 @@ export default class PopupWithForm extends Popup {
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._handleFormSubmit(this._getInputValues());
-      console.log(this._getInputValues());
-      debugger;
       this.close();
     });
     // добавлет обработчик клика иконке закрытия, и добавляет обработчик сабмита формы.

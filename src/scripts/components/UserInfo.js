@@ -9,9 +9,9 @@ export default class UserInfo {
       userJob: this._job.textContent,
     });
   }
-  setUserInfo({ inputName, inputJob }) {
-    this._name.textContent = inputName.value;
-    this._job.textContent = inputJob.value;
+  setUserInfo({ input_type_name, input_type_job }) {
+    this._name.textContent = input_type_name;
+    this._job.textContent = input_type_job;
   }
 }
 // Класс UserInfo отвечает за управление отображением информации о пользователе на странице.

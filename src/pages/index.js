@@ -8,10 +8,14 @@ import UserInfo from "../scripts/components/UserInfo.js";
 import { initialCards } from "../scripts/initial-cards.js";
 import { validationConfig } from "../scripts/validation-config.js";
 
-import { formAddCard, buttonOpenPopupProfile, buttonOpenPopupAddCard, formProfileEdit } from "../scripts/consts.js";
-
-const inputName = formProfileEdit.querySelector(".pop-up__input_type_name");
-const inputJob = formProfileEdit.querySelector(".pop-up__input_type_job");
+import {
+  formAddCard,
+  buttonOpenPopupProfile,
+  buttonOpenPopupAddCard,
+  formProfileEdit,
+  inputName,
+  inputJob,
+} from "../scripts/consts.js";
 
 const popupWithImage = new PopupWithImage(".pop-up_type_open-image");
 popupWithImage.setEventListeners();
@@ -44,9 +48,7 @@ cardList.renderItems();
 // результат метода нужно передавать аргументом в колбэк обработчика отправки формы
 
 const popupNewCard = new PopupWithForm(".pop-up_type_add-card", {
-  handleFormSubmit: () => {
-    const item = popupNewCard._getInputValues();
-    console.log(item);
+  handleFormSubmit: (item) => {
     cardList.addItem(createCard(item));
   },
 });
@@ -58,8 +60,8 @@ const userInfo = new UserInfo({
 });
 
 const popupProfile = new PopupWithForm(".pop-up_type_edit-profile", {
-  handleFormSubmit: () => {
-    userInfo.setUserInfo({ inputName, inputJob });
+  handleFormSubmit: (item) => {
+    userInfo.setUserInfo(item);
   },
 });
 
