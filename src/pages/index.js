@@ -5,51 +5,103 @@ import PopupWithImage from "../scripts/components/PopupWithImage.js";
 import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import FormValidator from "../scripts/components/FormValidator.js";
 import UserInfo from "../scripts/components/UserInfo.js";
-import { initialCards } from "../scripts/initial-cards.js";
 import { validationConfig } from "../scripts/validation-config.js";
+import Api from "../scripts/components/Api";
+import PopupWithConfirmation from "../scripts/components/PopupWithConfirmation.js";
 
 import {
   formAddCard,
   buttonOpenPopupProfile,
   buttonOpenPopupAddCard,
+  buttonOpenPopupAvatarEdit,
   formProfileEdit,
   inputName,
   inputJob,
+  profileName,
+  profileCaption,
+  profileAvatar,
+  formAvatarEdit,
 } from "../scripts/consts.js";
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-61",
+  headers: {
+    authorization: "1d40ed4d-cd27-430d-8004-90612a813f32",
+    "Content-Type": "application/json",
+  },
+});
+
+let currentUserId;
+
+Promise.all([api.getCurrentUser(), api.getInitialCards()])
+  .then(([currentUser, cards]) => {
+    profileName.textContent = currentUser.name;
+    profileCaption.textContent = currentUser.about;
+    profileAvatar.src = currentUser.avatar;
+    currentUserId = currentUser._id;
+    cardList.renderItems(cards);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 const popupWithImage = new PopupWithImage(".pop-up_type_open-image");
 popupWithImage.setEventListeners();
 
-// Код создания экземпляра класса Card повторяется в нескольких обработчиках.
-// Вынесите его в отдельную функцию. Функция должна создать экземпляр и вернуть результат метода generateCard.
-// Вставка в разметку должна остаться в обработчике формы и в методе render класса Section
 function createCard(item) {
-  const card = new Card(item, ".template", {
-    handleCardClick: () => {
-      popupWithImage.open(item);
+  const card = new Card(
+    item,
+    ".template",
+    currentUserId,
+    {
+      handleCardClick: () => {
+        popupWithImage.open(item);
+      },
     },
-  });
+    {
+      handleDeleteClick: () => {
+        popupDelete.open(item);
+      },
+    }
+  );
   return card.generateCard();
 }
 
+const popupDelete = new PopupWithConfirmation(
+  ".pop-up_type_confirm",
+  {
+    handleCardDelete: (id) => {
+      api.deleteCard(id).catch((err) => {
+        console.log(err);
+      });
+    },
+  },
+  {
+    removeCard: () => {
+      console.log(
+        "как здесь вызвать метод удаления каротчки из разметки?? ИЛи не здесь??? а где?"
+      );
+    },
+  }
+);
+popupDelete.setEventListeners();
+
 const cardList = new Section(
   {
-    items: initialCards,
     renderer: (item) => {
       cardList.addItem(createCard(item));
     },
   },
   ".cards-grid__list"
 );
-cardList.renderItems();
-
-// Данные из формы должен возвращать специальный метод _getInputValues.
-// Должен возвращаться объект данных. Так как метод должен быть защищенным,
-// результат метода нужно передавать аргументом в колбэк обработчика отправки формы
 
 const popupNewCard = new PopupWithForm(".pop-up_type_add-card", {
   handleFormSubmit: (item) => {
-    cardList.addItem(createCard(item));
+    api
+      .postCard(item.link, item.name)
+      .then((result) => cardList.addItem(createCard(result)))
+      .catch((err) => {
+        console.log(err);
+      });
   },
 });
 popupNewCard.setEventListeners();
@@ -61,11 +113,27 @@ const userInfo = new UserInfo({
 
 const popupProfile = new PopupWithForm(".pop-up_type_edit-profile", {
   handleFormSubmit: (item) => {
-    userInfo.setUserInfo(item);
+    api
+      .patchUserProfile(item.input_type_name, item.input_type_job)
+      .then((result) => userInfo.setUserInfo(result))
+      .catch((err) => {
+        console.log(err);
+      });
   },
 });
-
 popupProfile.setEventListeners();
+
+const popupAvatarEdit = new PopupWithForm(".pop-up_type_avatar-update", {
+  handleFormSubmit: (item) => {
+    api
+      .patchUserAvatar(item.link)
+      .then((result) => (profileAvatar.src = result.avatar))
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+});
+popupAvatarEdit.setEventListeners();
 
 buttonOpenPopupProfile.addEventListener("click", () => {
   const userData = userInfo.getUserInfo();
@@ -79,8 +147,15 @@ buttonOpenPopupAddCard.addEventListener("click", () => {
   cardFormValidator.disableButton();
 });
 
+buttonOpenPopupAvatarEdit.addEventListener("click", () => {
+  popupAvatarEdit.open();
+  avatarFormValidator.disableButton();
+});
+
 const editFormValidator = new FormValidator(validationConfig, formProfileEdit);
 const cardFormValidator = new FormValidator(validationConfig, formAddCard);
+const avatarFormValidator = new FormValidator(validationConfig, formAvatarEdit);
 
 editFormValidator.enableValidation();
 cardFormValidator.enableValidation();
+avatarFormValidator.enableValidation();

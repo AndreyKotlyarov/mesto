@@ -4,11 +4,11 @@
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
+  transition: opacity ease-in-out 0.3s;
+
 }
 
-@media screen and (max-width: 900px) {
-  .profile__avatar {
-    margin-top: 42px;
-    margin-bottom: 26px;
-  }
+.profile__avatar:hover {
+  cursor: pointer;
+  opacity: 0.2;
 }

@@ -1,9 +1,9 @@
 .card__image {
   max-height: 100%;
-  grid-column: span 2;
-  align-self: start;
-  justify-self: center;
-  aspect-ratio: 1 / 1;
+  min-width: 100%;
+  object-fit: cover;
+  object-position: center;
+  ;
 }
 
 .card__image:hover {
