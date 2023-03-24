@@ -58,6 +58,16 @@ function createCard(item) {
       },
     },
     {
+      handleApiLike: () => {
+        api.setLike(item._id);
+      },
+    },
+    {
+      handleApiDelete: () => {
+        api.deleteLike(item._id);
+      },
+    },
+    {
       handleDeleteClick: () => {
         popupDelete.open(item);
       },
@@ -66,24 +76,24 @@ function createCard(item) {
   return card.generateCard();
 }
 
-const popupDelete = new PopupWithConfirmation(
-  ".pop-up_type_confirm",
-  {
-    handleCardDelete: (id) => {
-      api.deleteCard(id).catch((err) => {
-        console.log(err);
-      });
-    },
-  },
-  {
-    removeCard: () => {
-      console.log(
-        "как здесь вызвать метод удаления каротчки из разметки?? ИЛи не здесь??? а где?"
-      );
-    },
-  }
-);
-popupDelete.setEventListeners();
+// const popupDelete = new PopupWithConfirmation(
+//   ".pop-up_type_confirm",
+//   {
+//     handleCardDelete: (id) => {
+//       api.deleteCard(id).catch((err) => {
+//         console.log(err);
+//       });
+//     },
+//   },
+//   {
+//     removeCard: () => {
+//       console.log(
+//         "как здесь вызвать метод удаления каротчки из разметки?? ИЛи не здесь??? а где?"
+//       );
+//     },
+//   }
+// );
+// popupDelete.setEventListeners();
 
 const cardList = new Section(
   {
