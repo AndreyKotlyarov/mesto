@@ -37,26 +37,24 @@ export default class Card {
     this._image.src = this._link;
     this._image.alt = this._name;
     this._element.querySelector(".card__caption").textContent = this._name;
-    this._setLikesCounter();
-    // this._element.querySelector(".card__like-counter").textContent = this._likes.length;
+    this._setLikesCounter(this._likes.length);
     this._setEventListeners();
-    // удаляем кнопки с корзиной
     if (!this._isOwner) {
       this._element.querySelector(".card__delete-button").remove();
     }
-    this._checkLike();
+    this._checkLike(this._likes);
     this._handleLike();
     return this._element;
   };
-  _checkLike() {
-    this._likes.forEach((element) => {
+  _checkLike(likesArray) {
+    likesArray.forEach((element) => {
       if (element._id === this._currentUserId) {
         this._isLiked = true;
       }
     });
   }
-  _setLikesCounter() {
-    this._element.querySelector(".card__like-counter").textContent = this._likes.length;
+  _setLikesCounter(value) {
+    this._element.querySelector(".card__like-counter").textContent = value;
   }
   _handleDeleteClick() {
     this._handleDeleteClick();
@@ -66,11 +64,14 @@ export default class Card {
     this._element.remove();
     this._element = null;
   }
+
   _handleApiLikes() {
     if (this._isLiked === true) {
       this._deleteApiLike(this._id)
-        .then(() => {
-          this._checkLike();
+        .then((result) => {
+          this._setLikesCounter(result.likes.length);
+          this._checkLike(result.likes);
+          this._isLiked = false;
           this._handleLike();
         })
         .catch((err) => {
@@ -78,10 +79,10 @@ export default class Card {
         });
     } else {
       this._setApiLike(this._id)
-        .then(() => {
-          this._checkLike();
-          debugger;
-          this._setLikesCounter();
+        .then((result) => {
+          this._setLikesCounter(result.likes.length);
+          this._checkLike(result.likes);
+          this._isLiked = true;
           this._handleLike();
         })
         .catch((err) => {

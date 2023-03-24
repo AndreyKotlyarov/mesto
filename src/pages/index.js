@@ -59,12 +59,12 @@ function createCard(item) {
     },
     {
       handleApiLike: () => {
-        api.setLike(item._id);
+        return api.setLike(item._id);
       },
     },
     {
       handleApiDelete: () => {
-        api.deleteLike(item._id);
+        return api.deleteLike(item._id);
       },
     },
     {
