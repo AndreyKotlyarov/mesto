@@ -1,14 +1,20 @@
 export default class UserInfo {
-  constructor({ nameSelector, jobSelector }) {
+  constructor({ nameSelector, jobSelector, avatarSelector }) {
     this._name = document.querySelector(nameSelector);
     this._job = document.querySelector(jobSelector);
+    this._avatar = document.querySelector(avatarSelector);
   }
   getUserInfo() {
-    return { userName: this._name.textContent, userJob: this._job.textContent };
+    return {
+      userName: this._name.textContent,
+      userJob: this._job.textContent,
+      userAvatar: this._avatar.src,
+    };
   }
-  setUserInfo({ name, about }) {
+  setUserInfo({ name, about, avatar }) {
     this._name.textContent = name;
     this._job.textContent = about;
+    this._avatar.src = avatar;
   }
 }
 // Класс UserInfo отвечает за управление отображением информации о пользователе на странице.

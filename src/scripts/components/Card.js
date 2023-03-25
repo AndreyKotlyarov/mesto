@@ -1,15 +1,11 @@
-import PopupWithConfirmation from "./PopupWithConfirmation";
-
 export default class Card {
   constructor(
     data,
     templateSelector,
     currentUserId,
     { handleCardClick },
-    { handleApiLike },
-    { handleApiDeleteLike },
+    { handleLikeClick },
 
-    { handleApiDeleteCard },
     { handleDeleteClick }
   ) {
     this._link = data.link;
@@ -23,12 +19,12 @@ export default class Card {
     this._image = this._element.querySelector(".card__image");
     this._likeButton = this._element.querySelector(".card__like-button");
     this._handleCardClick = handleCardClick.bind(this);
-    this._isLiked = false;
-    this._setApiLike = handleApiLike;
-    this._deleteApiLike = handleApiDeleteLike;
+    this.isLiked = false;
+
+    this._handleLikeClick = handleLikeClick;
 
     this._handleDeleteClick = handleDeleteClick.bind(this);
-    this._deleteApiCard = handleApiDeleteCard;
+
     this._confirmState = false;
     // this._removeCard = this._removeCard.bind(this);
   }
@@ -43,76 +39,70 @@ export default class Card {
     this._image.src = this._link;
     this._image.alt = this._name;
     this._element.querySelector(".card__caption").textContent = this._name;
-    this._setLikesCounter(this._likes.length);
+    this.setLikesCounter(this._likes.length);
     this._setEventListeners();
     if (!this._isOwner) {
       this._element.querySelector(".card__delete-button").remove();
     }
-    this._checkLike(this._likes);
-    this._handleLike();
+    this.checkLike(this._likes);
+    this.handleLike();
     return this._element;
   };
   // тут удаление-------------------------------------------------------------------------------------------
 
-  _handleDeleteClick() {
-    this._handleDeleteClick();
-  }
+  // _handleDeleteClick() {          //Если этот метод будет вызван, то он будет вызывать самого себя, приложение зависнет.
+  //   this._handleDeleteClick();
+  // }
 
   removeCard() {
-    this._deleteApiCard(this._id)
-      .then(() => {
-        this._element.remove();
-        this._element = null;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this._element.remove();
+    this._element = null;
   }
   //_______________________________________________________________________________________________________
 
   // тут лайки-------------------------------------------------------------------------------------------
-  _checkLike(likesArray) {
-    likesArray.forEach((element) => {
+  checkLike() {
+    this._likes.forEach((element) => {
       if (element._id === this._currentUserId) {
-        this._isLiked = true;
+        this.isLiked = true;
       }
     });
   }
-  _setLikesCounter(value) {
+  setLikesCounter(value) {
     this._element.querySelector(".card__like-counter").textContent = value;
   }
-  _handleLike() {
-    if (this._isLiked === true) {
+  handleLike() {
+    if (this.isLiked === true) {
       this._likeButton.classList.add("card__like-button_active");
     } else {
       this._likeButton.classList.remove("card__like-button_active");
     }
   }
-  _handleApiLikes() {
-    if (this._isLiked === true) {
-      this._deleteApiLike(this._id)
-        .then((result) => {
-          this._setLikesCounter(result.likes.length);
-          this._checkLike(result.likes);
-          this._isLiked = false;
-          this._handleLike();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      this._setApiLike(this._id)
-        .then((result) => {
-          this._setLikesCounter(result.likes.length);
-          this._checkLike(result.likes);
-          this._isLiked = true;
-          this._handleLike();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }
+  // _handleApiLikes() {
+  //   if (this.isLiked === true) {
+  //     this._deleteApiLike(this._id)
+  //       .then((result) => {
+  //         this.setLikesCounter(result.likes.length);
+  //         this.checkLike(result.likes);
+  //         this.isLiked = false;
+  //         this.handleLike();
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } else {
+  //     this._setApiLike(this._id)
+  //       .then((result) => {
+  //         this.setLikesCounter(result.likes.length);
+  //         this.checkLike(result.likes);
+  //         this.isLiked = true;
+  //         this.handleLike();
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  // }
   //______________________________________________________________________________________________________
 
   _handleOpenImage() {
@@ -124,9 +114,9 @@ export default class Card {
       .querySelector(".card__delete-button")
       .addEventListener("click", this._handleDeleteClick.bind(this));
 
-    this._element
-      .querySelector(".card__like-button")
-      .addEventListener("click", this._handleApiLikes.bind(this));
+    this._element.querySelector(".card__like-button").addEventListener("click", () => {
+      this._handleLikeClick(this._id, this.isLiked, this);
+    });
 
     this._element.querySelector(".card__image").addEventListener("click", () => {
       this._handleOpenImage();

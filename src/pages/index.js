@@ -58,18 +58,32 @@ function createCard(item) {
       },
     },
     {
-      handleApiLike: () => {
-        return api.setLike(item._id);
-      },
-    },
-    {
-      handleApiDeleteLike: () => {
-        return api.deleteLike(item._id);
-      },
-    },
-    {
-      handleApiDeleteCard: () => {
-        return api.deleteCard(item._id);
+      handleLikeClick: (id, isLiked, card) => {
+        if (isLiked) {
+          api
+            .deleteLike(id)
+            .then((result) => {
+              card.setLikesCounter(result.likes.length);
+              card.checkLike(result.likes);
+              card.isLiked = false;
+              card.handleLike();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          api
+            .setLike(id)
+            .then((result) => {
+              card.setLikesCounter(result.likes.length);
+              card.checkLike(result.likes);
+              card.isLiked = true;
+              card.handleLike();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
       },
     },
     {
@@ -78,13 +92,7 @@ function createCard(item) {
       },
     }
   );
-  //cringe
-  const popupDelete = new PopupWithConfirmation(".pop-up_type_confirm", {
-    handleSubmit: () => {
-      card.removeCard();
-    },
-  });
-  popupDelete.setEventListeners();
+
   return card.generateCard();
 }
 
@@ -112,9 +120,17 @@ const popupNewCard = new PopupWithForm(".pop-up_type_add-card", {
 });
 popupNewCard.setEventListeners();
 
+const popupDelete = new PopupWithConfirmation(".pop-up_type_confirm", {
+  handleSubmit: () => {
+    card.removeCard();
+  },
+});
+popupDelete.setEventListeners();
+
 const userInfo = new UserInfo({
   nameSelector: ".profile__name",
   jobSelector: ".profile__caption",
+  avatarSelector: ".profile__avatar",
 });
 
 const popupProfile = new PopupWithForm(".pop-up_type_edit-profile", {
@@ -137,7 +153,7 @@ const popupAvatarEdit = new PopupWithForm(".pop-up_type_avatar-update", {
     popupAvatarEdit.renderLoading(true);
     api
       .patchUserAvatar(item.link)
-      .then((result) => (profileAvatar.src = result.avatar))
+      .then((result) => userInfo.setUserInfo(result))
       .then(() => popupAvatarEdit.close())
       .catch((err) => {
         console.log(err);
