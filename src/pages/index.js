@@ -63,8 +63,13 @@ function createCard(item) {
       },
     },
     {
-      handleApiDelete: () => {
+      handleApiDeleteLike: () => {
         return api.deleteLike(item._id);
+      },
+    },
+    {
+      handleApiDeleteCard: () => {
+        return api.deleteCard(item._id);
       },
     },
     {
@@ -73,27 +78,15 @@ function createCard(item) {
       },
     }
   );
+  //cringe
+  const popupDelete = new PopupWithConfirmation(".pop-up_type_confirm", {
+    handleSubmit: () => {
+      card.removeCard();
+    },
+  });
+  popupDelete.setEventListeners();
   return card.generateCard();
 }
-
-// const popupDelete = new PopupWithConfirmation(
-//   ".pop-up_type_confirm",
-//   {
-//     handleCardDelete: (id) => {
-//       api.deleteCard(id).catch((err) => {
-//         console.log(err);
-//       });
-//     },
-//   },
-//   {
-//     removeCard: () => {
-//       console.log(
-//         "как здесь вызвать метод удаления каротчки из разметки?? ИЛи не здесь??? а где?"
-//       );
-//     },
-//   }
-// );
-// popupDelete.setEventListeners();
 
 const cardList = new Section(
   {
@@ -106,12 +99,15 @@ const cardList = new Section(
 
 const popupNewCard = new PopupWithForm(".pop-up_type_add-card", {
   handleFormSubmit: (item) => {
+    popupNewCard.renderLoading(true);
     api
       .postCard(item.link, item.name)
       .then((result) => cardList.addItem(createCard(result)))
+      .then(() => popupNewCard.close())
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => popupNewCard.renderLoading(false, "Создать"));
   },
 });
 popupNewCard.setEventListeners();
@@ -123,24 +119,30 @@ const userInfo = new UserInfo({
 
 const popupProfile = new PopupWithForm(".pop-up_type_edit-profile", {
   handleFormSubmit: (item) => {
+    popupProfile.renderLoading(true);
     api
       .patchUserProfile(item.input_type_name, item.input_type_job)
       .then((result) => userInfo.setUserInfo(result))
+      .then(() => popupProfile.close())
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => popupProfile.renderLoading(false, "Сохранить"));
   },
 });
 popupProfile.setEventListeners();
 
 const popupAvatarEdit = new PopupWithForm(".pop-up_type_avatar-update", {
   handleFormSubmit: (item) => {
+    popupAvatarEdit.renderLoading(true);
     api
       .patchUserAvatar(item.link)
       .then((result) => (profileAvatar.src = result.avatar))
+      .then(() => popupAvatarEdit.close())
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => popupAvatarEdit.renderLoading(false, "Сохранить"));
   },
 });
 popupAvatarEdit.setEventListeners();

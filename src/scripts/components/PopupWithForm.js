@@ -7,6 +7,7 @@ export default class PopupWithForm extends Popup {
     this._form = this._popup.querySelector(".pop-up__form");
     this._inputs = this._form.querySelectorAll(".pop-up__input");
     this._getInputValues = this._getInputValues.bind(this);
+    this._button = this._form.querySelector(".pop-up__submit-button");
   }
   _getInputValues() {
     this._inputValues = {};
@@ -16,12 +17,20 @@ export default class PopupWithForm extends Popup {
     return this._inputValues;
     //собирает данные всех полей формы.
   }
+  renderLoading(loadingState, text) {
+    if (loadingState) {
+      this._button.textContent = "Сохранение...";
+    } else {
+      this._button.textContent = text;
+    }
+  }
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener("submit", (evt) => {
+      this.renderLoading(true);
       evt.preventDefault();
       this._handleFormSubmit(this._getInputValues());
-      this.close();
+      // this.close();
     });
     // добавлет обработчик клика иконке закрытия, и добавляет обработчик сабмита формы.
   }
