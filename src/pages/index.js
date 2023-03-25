@@ -88,11 +88,10 @@ function createCard(item) {
     },
     {
       handleDeleteClick: () => {
-        popupDelete.open(item);
+        popupDelete.open(item, card);
       },
     }
   );
-
   return card.generateCard();
 }
 
@@ -121,8 +120,16 @@ const popupNewCard = new PopupWithForm(".pop-up_type_add-card", {
 popupNewCard.setEventListeners();
 
 const popupDelete = new PopupWithConfirmation(".pop-up_type_confirm", {
-  handleSubmit: () => {
-    card.removeCard();
+  handleSubmit: (id, card) => {
+    api
+      .deleteCard(id)
+      .then(() => {
+        card.removeCard();
+        popupWithConfirmation.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 });
 popupDelete.setEventListeners();

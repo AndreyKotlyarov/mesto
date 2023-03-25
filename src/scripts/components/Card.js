@@ -5,9 +5,9 @@ export default class Card {
     currentUserId,
     { handleCardClick },
     { handleLikeClick },
-
     { handleDeleteClick }
   ) {
+    this._data = data;
     this._link = data.link;
     this._name = data.name;
     this._likes = data.likes;
@@ -24,9 +24,6 @@ export default class Card {
     this._handleLikeClick = handleLikeClick;
 
     this._handleDeleteClick = handleDeleteClick.bind(this);
-
-    this._confirmState = false;
-    // this._removeCard = this._removeCard.bind(this);
   }
   _getTemplate() {
     const cardElement = document
@@ -48,19 +45,13 @@ export default class Card {
     this.handleLike();
     return this._element;
   };
-  // тут удаление-------------------------------------------------------------------------------------------
-
-  // _handleDeleteClick() {          //Если этот метод будет вызван, то он будет вызывать самого себя, приложение зависнет.
-  //   this._handleDeleteClick();
-  // }
 
   removeCard() {
     this._element.remove();
     this._element = null;
   }
-  //_______________________________________________________________________________________________________
 
-  // тут лайки-------------------------------------------------------------------------------------------
+  // лайки-------------------------------------------------------------------------------------------
   checkLike() {
     this._likes.forEach((element) => {
       if (element._id === this._currentUserId) {
@@ -78,31 +69,6 @@ export default class Card {
       this._likeButton.classList.remove("card__like-button_active");
     }
   }
-  // _handleApiLikes() {
-  //   if (this.isLiked === true) {
-  //     this._deleteApiLike(this._id)
-  //       .then((result) => {
-  //         this.setLikesCounter(result.likes.length);
-  //         this.checkLike(result.likes);
-  //         this.isLiked = false;
-  //         this.handleLike();
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   } else {
-  //     this._setApiLike(this._id)
-  //       .then((result) => {
-  //         this.setLikesCounter(result.likes.length);
-  //         this.checkLike(result.likes);
-  //         this.isLiked = true;
-  //         this.handleLike();
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }
   //______________________________________________________________________________________________________
 
   _handleOpenImage() {
@@ -110,9 +76,9 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._element
-      .querySelector(".card__delete-button")
-      .addEventListener("click", this._handleDeleteClick.bind(this));
+    this._element.querySelector(".card__delete-button").addEventListener("click", () => {
+      this._handleDeleteClick(this._data, this);
+    });
 
     this._element.querySelector(".card__like-button").addEventListener("click", () => {
       this._handleLikeClick(this._id, this.isLiked, this);
